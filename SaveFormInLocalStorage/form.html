@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Form</h2>
+    <form class="form-horizontal" id="student-form" action="/submit-form.html" method="post">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Name:</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="name" placeholder="Enter Name" name="name" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="father_name">Father Name:</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="father_name" placeholder="Enter Father Name" name="father_name"
+                       required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="phone_no">Phone No:</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="phone_no" placeholder="Enter Phone No" name="phone_no" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Gender:</label>
+            <div class="col-sm-10">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="male"
+                           required="required">
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="department">Department:</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="department">
+                    <option value="" selected disabled>Select Department</option>
+                    <option value="computer_science">Computer Science</option>
+                    <option value="applied_physics">Applied Physics</option>
+                    <option value="biochemistry">Biochemistry</option>
+                    <option value="pharmacy">Pharmacy</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Extra Courses:</label>
+            <div class="col-sm-10 checkbox">
+                <label><input type="checkbox" name="extra_courses" id="english"> English </label><br>
+                <label><input type="checkbox" name="extra_courses" id="urdu"> Urdu </label><br>
+                <label><input type="checkbox" name="extra_courses" id="math"> Math </label><br>
+                <label><input type="checkbox" name="extra_courses" id="science"> Science </label><br>
+                <label><input type="checkbox" name="extra_courses" id="history"> History </label><br>
+                <label><input type="checkbox" name="extra_courses" id="geography"> Geography </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" onclick="form_submit()" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
+
+<script>
+    function form_submit() {
+        var form = document.forms['student-form']
+        var form_values_obj = {
+            'name': form['name'].value,
+            'father_name': form['father_name'].value,
+            'email': form['email'].value,
+            'phone_no': form['phone_no'].value,
+            'gender': form['gender'].value,
+            'department': form['department'].value
+        }
+        var extra_courses = []
+        for (var i = 0; i < form['extra_courses'].length; i++) {
+            if (form['extra_courses'][i].checked) {
+                extra_courses.push(form['extra_courses'][i].id)
+            }
+        }
+        form_values_obj['extra_courses'] = extra_courses
+        localStorage.setItem('form_values_obj', JSON.stringify(form_values_obj, null, 4));
+    }
+</script>
